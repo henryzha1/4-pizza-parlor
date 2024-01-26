@@ -36,15 +36,27 @@ https://henryzha1.github.io/4-pizza-parlor/
 ```
 Describe: Pizza();  
  
-Test: "Returns an object with 2 properties of size and toppings";  
-Code: let myPizza = new Pizza("medium", ["pepperoni, onions, mushrooms"]);
-Expected: Pizza { toppings: size: "medium", ["pepperoni", "onions", "mushrooms"] }
+Test: "Returns an object with 6 properties of size, crust, toppings, sauce, special instructions, and price;  
+Code: let myPizza = new Pizza("medium", "stuffed", ["pepperoni", "onions", "mushrooms"], "alfredo", "special instructions", 12);
+Expected: Pizza { toppings: size: "medium", "stuffed", ["pepperoni", "onions", "mushrooms"], "alfredo", "special instructions", 12}
 
 Describe: Pizza.prototype.getPrice();
 
 Test: "Returns an int of the total cost of pizza with all selected customized options"
 Code: pizza.getPrice();
 Expected Output: 15 
+
+Describe: handleCartSubmission()
+
+Test: "Creates an object with all the inputed information"
+Code: document.getElementById("shop").addEventListener("submit", handleCartSubmission);
+Expected Output: myPizza;
+
+Describe: updateTotalPrice()
+
+Test: "Updates total price at bottom dynamically as users change options for their pizza using pizza.getPrice";
+Code: updateTotalPrice();
+Expected Output: changes myPizza.price and updates the website live
 ```
 ## Known Bugs
 - No issues found as of the last update. Feel free to [reach out](mailto:henz51111@gmail.com) if encountered any.
