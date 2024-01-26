@@ -21,8 +21,55 @@ Pizza.prototype.getPrice = function() {
         cost += 3;
     }
     cost += this.meat.length*1 + this.veggie.length*0.5;
-    this.price = cost;
+    this.price = cost.toFixed(2);
     return cost;
+}
+
+
+function handleCartSubmission(e) {
+    e.preventDefault();
+
+    let pizza = gatherUserInputs();
+
+
+    console.log(pizza);
+    //takes the pizza and adds to cart
+
+
+    resetDefault();
+}
+
+function updatePrice() {
+    //set up event listeners on all form inputs and update pizza properties per form input
+    //each event listener needs an get price method 
+
+    document.getElementById("shop").addEventListener("change", (e) => {
+        let pizza = gatherUserInputs();
+        document.getElementById("price").innerText = pizza.price;
+    });
+
+}
+
+function gatherUserInputs() {
+    let pizza = new Pizza();
+    //gathering user inputs
+    pizza.size = document.querySelector("input[name='size']:checked").value;
+    pizza.crust = document.querySelector("input[name='crust']:checked").value;
+    let meatChecked = document.querySelectorAll("input[name=meat]:checked");
+    meatChecked = Array.from(meatChecked);
+    pizza.meat = meatChecked.map((input) => {
+        return input.value;
+    });
+    let veggieChecked = document.querySelectorAll("input[name=veggie]:checked");
+    veggieChecked = Array.from(veggieChecked);
+    pizza.veggie = veggieChecked.map((input) => {
+        return input.value;
+    });
+    pizza.sauce = document.getElementById("sauceSelection").value;
+    pizza.instructions = document.getElementById("instructionsInput").value;
+    pizza.getPrice();
+
+    return pizza;
 }
 
 function resetDefault() {
@@ -34,36 +81,19 @@ function resetDefault() {
         checkbox.checked = false;
     });
     document.getElementById("instructionsInput").value = "";
-}
-
-function handleCartSubmission(e) {
-    e.preventDefault();
-
-    //gathering user inputs
-    const size = document.querySelector("input[name='size']:checked").value;
-    const crust = document.querySelector("input[name='crust']:checked").value;
-    let meatChecked = document.querySelectorAll("input[name=meat]:checked");
-    meatChecked = Array.from(meatChecked);
-    const meat = meatChecked.map((input) => {
-        return input.value;
-    });
-    let veggieChecked = document.querySelectorAll("input[name=veggie]:checked");
-    veggieChecked = Array.from(veggieChecked);
-    const veggie = veggieChecked.map((input) => {
-        return input.value;
-    });
-    const sauce = document.getElementById("sauceSelection").value;
-    const instructions = document.getElementById("instructionsInput").value;
-
-    let pizza = new Pizza(size, crust, meat, veggie, sauce, instructions);
-    console.log(pizza.getPrice());
-
-
-    resetDefault();
+    document.getElementById("price").innerText = "9.00";
 }
 
 window.addEventListener("load", function() {
     document.getElementById("sauceSelection").selectedIndex = 0;
-    document.getElementById("shop").addEventListener("submit", handleCartSubmission);
+
+    updatePrice();
+    document.getElementById("shop").addEventListener("submit", (e) => {
+        if(false) { //sauce index = 0;
+            //error path
+        } else {
+            handleCartSubmission(e);
+        }
+    });
     
 });
