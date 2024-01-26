@@ -13,7 +13,7 @@ by [Henry Zhang]
 
 ## Technologies used
 - HTML5
-- SCSS
+- CSS
 - JavaScript (Array, loop, if statements, functions)
 - VS Code
 - Git commands

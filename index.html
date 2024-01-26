@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Henry's Pizza Parlor</title>
+    <link href="css/styles.css" rel="stylesheet" type="text/css">
+    <script src="js/scrips.js"></script>
+</head>
+<body>
+    <form id="shop">
+        <h1>Welcome to HENRY's PIZZA SHOP</h1>
+        <h2>Please customize your pizza: </h2>
+        <div id="size">
+            <h3>Size:</h3>
+            <label>
+                <input type="radio" name="size" value="small" checked>
+                Small
+            </label><br>
+            <label>
+                <input type="radio" name="size" value="medium">
+                Medium (add $3)
+            </label><br>
+            <label>
+                <input type="radio" name="size" value="large">
+                Large (add $4)
+            </label><br>
+        </div>
+
+        <div id="crust">
+            <h3>Crust:</h3>
+            <label>
+                <input type="radio" name="crust" value="regular" checked>
+                Original Recipe Crust
+            </label><br>
+            <label>
+                <input type="radio" name="crust" value="thin">
+                Thin and Crispy Crust
+            </label><br>
+            <label>
+                <input type="radio" name="crust" value="stuffed">
+                Mozerella and Garlic Stuffed Crust (add $3)
+            </label><br>
+        </div>
+
+        <div id="toppings">
+            <h3>Toppings:</h3>
+            <h4>Meats (add $1/topping): </h4>
+            <label>
+                <input type="checkbox" name="meat" value="sausage">
+                Italian Sausage
+            </label><br>
+            <label>
+                <input type="checkbox" name="meat" value="pepperoni">
+                Pepperoni
+            </label><br>
+            <label>
+                <input type="checkbox" name="meat" value="bacon">
+                Bacon
+            </label><br>
+            <label>
+                <input type="checkbox" name="meat" value="meatball">
+                Meatball
+            </label><br>
+            <label>
+                <input type="checkbox" name="meat" value="ham">
+                Ham
+            </label><br>
+            <label>
+                <input type="checkbox" name="meat" value="chicken">
+                Grilled Chicken
+            </label><br>
+
+            <h4>Vegetables (add 50¢/topping):</h4>
+            <label>
+                <input type="checkbox" name="veggie" value="mushrooms">
+                Mushrooms
+            </label><br>
+            <label>
+                <input type="checkbox" name="veggie" value="onions">
+                Onions
+            </label><br>
+            <label>
+                <input type="checkbox" name="veggie" value="pineapple">
+                Pineapple
+            </label><br>
+            <label>
+                <input type="checkbox" name="veggie" value="olives">
+                Mediterranean Black Olives
+            </label><br>
+            <label>
+                <input type="checkbox" name="veggie" value="peppers">
+                Green Bell Peppers
+            </label><br>
+        </div>
+
+        <div id="sauce">
+            <h3>Sauce:</h3>
+            <select id="sauceSelection">
+                <option disabled selectd>Choose a sauce</option>
+                <option value="marinara">Marinara</option>
+                <option value="alfredo">Alfredo</option>
+            </select>
+        </div>
+
+        <div id="instructions">
+            <h5>Special Instructions: </h5>
+            <input id="instructionsInput" type="text" name="instructions">
+        </div>
+
+        <div id="total">
+            <h3 id="total">SUBTOTAL: </h3>
+        </div>
+
+        <button type="submit" id="cart">Add to cart!</button>
+    </form>
+</body>
+</html>
