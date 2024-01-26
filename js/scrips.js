@@ -30,11 +30,13 @@ Pizza.prototype.addToCart = function() {
     document.querySelectorAll("#cartArea>label").forEach((label) => {
         label.removeEventListener("change", handleServiceChange);
     });
+    document.getElementById("order").removeEventListener("click", handleSubmitOrder);
 
     //creates pizza to append to DOM cart area at bottom
+    let div = document.createElement("div");
     let title = document.createElement("p");
     title.innerText = "Item: " + getCartNumber();
-    document.getElementById("items").append(title);
+    div.append(title);
     let order = document.createElement("ul");
     let size = document.createElement("li");
     size.innerText = "Size: " + this.size.charAt(0).toUpperCase() + this.size.slice(1);
@@ -66,14 +68,47 @@ Pizza.prototype.addToCart = function() {
     let price = document.createElement("li");
     price.innerText = "Item Cost: $" + this.price;
     order.append(price); 
-    document.getElementById("items").append(order);
+    div.append(order);
+    document.getElementById("items").append(div);
 
-    updateCartTotal(parseInt(this.price));
+    updateCartTotal(this.price);
 
     //set up delivery option
     document.querySelectorAll("#cartArea>label").forEach((label) => {
         label.addEventListener("change", handleServiceChange);
     });
+    document.getElementById("order").addEventListener("click", handleSubmitOrder);
+}
+
+function handleSubmitOrder() {
+
+    const cloned = document.getElementById("cartArea").cloneNode(true);
+    
+    document.getElementById("ordered").removeAttribute("class");
+    document.getElementById("ordering").remove();
+    document.getElementById("reorder").addEventListener("click", () => {
+        window.location.reload();
+    });
+
+    document.getElementById("previousOrder").append(cloned);
+    document.querySelectorAll("#cartArea>label, #order").forEach((element) => {
+        element.remove();
+    });
+    let time = document.createElement("p");
+    let itemNum = "" + document.getElementById("items").lastElementChild.firstElementChild.innerText.slice(-1);
+    switch(itemNum) {
+        case("1"):
+        case("2"):
+            time.innerText = "Estimed wait time: 20 minutes";
+            break;
+        case("3"):
+        case("4"):
+            time.innerText = "Estimed wait time: 35 minutes";
+            break;
+        default:
+            time.innerText = "Estimed wait time: over 45 minutes";
+    }
+    document.getElementById("timeEstimation").append(time);
 }
 
 function handleServiceChange(e) {
@@ -85,8 +120,8 @@ function handleServiceChange(e) {
 }
 
 function updateCartTotal(updatedPrice) {
-    const previous = parseInt(document.getElementById("subtotalCart").innerText);
-    const total = (previous + parseInt(updatedPrice)).toFixed(2);
+    const previous = parseFloat(document.getElementById("subtotalCart").innerText);
+    const total = (previous + parseFloat(updatedPrice)).toFixed(2);
     let tax = total*0.1;
     let totalAfter = total*1.1
     document.getElementById("subtotalCart").innerText = total;
@@ -95,7 +130,7 @@ function updateCartTotal(updatedPrice) {
 }
 
 function getCartNumber() {
-    return document.querySelectorAll("#items>ul").length + 1;
+    return document.querySelectorAll("#items>div").length + 1;
 }
 
 

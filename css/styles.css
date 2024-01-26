@@ -3,5 +3,23 @@
 }
 
 #error {
+    color: black;
+}
+
+#ordering {
+    display: flex;
+    justify-content: space-between;
+}
+
+#shop {
+    width: 60%;
+}
+
+#cartArea {
+    width: 40%;
+}
+
+body {
+    background-color: yellow;
     color: red;
 }
