@@ -25,16 +25,84 @@ Pizza.prototype.getPrice = function() {
     return cost;
 }
 
+Pizza.prototype.addToCart = function() {
+    document.getElementById("cartArea").removeAttribute("class");
+    document.querySelectorAll("#cartArea>label").forEach((label) => {
+        label.removeEventListener("change", handleServiceChange);
+    });
+
+    //creates pizza to append to DOM cart area at bottom
+    let title = document.createElement("p");
+    title.innerText = "Item: " + getCartNumber();
+    document.getElementById("items").append(title);
+    let order = document.createElement("ul");
+    let size = document.createElement("li");
+    size.innerText = "Size: " + this.size.charAt(0).toUpperCase() + this.size.slice(1);
+    order.append(size);
+    let crust = document.createElement("li");
+    crust.innerText = "Crust: " + this.crust.charAt(0).toUpperCase() + this.crust.slice(1);
+    order.append(crust);
+    let toppings = document.createElement("li");
+    let toppingsUL = document.createElement("ul")
+    toppings.innerText = "Toppings:";
+    this.meat.forEach((meatTopping) => {
+        let meatItem = document.createElement("li");
+        meatItem.innerText = meatTopping.charAt(0).toUpperCase() + meatTopping.slice(1);
+        toppingsUL.append(meatItem);
+    });
+    this.veggie.forEach((veggieTopping) => {
+        let veggieItem = document.createElement("li");
+        veggieItem.innerText = veggieTopping.charAt(0).toUpperCase() + veggieTopping.slice(1);
+        toppingsUL.append(veggieItem);
+    });
+    toppings.append(toppingsUL);
+    order.append(toppings);
+    let sauce = document.createElement("li");
+    sauce.innerText = "Sauce: " + this.sauce.charAt(0).toUpperCase() + this.sauce.slice(1);
+    order.append(sauce);
+    let instructions = document.createElement("li");
+    instructions.innerText = "Special Instructions: " + this.instructions.charAt(0).toUpperCase() + this.instructions.slice(1);
+    order.append(instructions);
+    let price = document.createElement("li");
+    price.innerText = "Item Cost: $" + this.price;
+    order.append(price); 
+    document.getElementById("items").append(order);
+
+    updateCartTotal(parseInt(this.price));
+
+    //set up delivery option
+    document.querySelectorAll("#cartArea>label").forEach((label) => {
+        label.addEventListener("change", handleServiceChange);
+    });
+}
+
+function handleServiceChange(e) {
+    if(e.target.id === "pickup") {
+        updateCartTotal(-5);
+    } else {
+        updateCartTotal(5);
+    }
+}
+
+function updateCartTotal(updatedPrice) {
+    const previous = parseInt(document.getElementById("subtotalCart").innerText);
+    const total = (previous + parseInt(updatedPrice)).toFixed(2);
+    let tax = total*0.1;
+    let totalAfter = total*1.1
+    document.getElementById("subtotalCart").innerText = total;
+    document.getElementById("tax").innerText = tax.toFixed(2);
+    document.getElementById("total").innerText = totalAfter.toFixed(2);
+}
+
+function getCartNumber() {
+    return document.querySelectorAll("#items>ul").length + 1;
+}
+
 
 function handleCartSubmission(e) {
-    e.preventDefault();
-
     let pizza = gatherUserInputs();
 
-
-    console.log(pizza);
-    //takes the pizza and adds to cart
-
+    pizza.addToCart();
 
     resetDefault();
 }
@@ -88,9 +156,16 @@ window.addEventListener("load", function() {
     document.getElementById("sauceSelection").selectedIndex = 0;
 
     updatePrice();
+
     document.getElementById("shop").addEventListener("submit", (e) => {
-        if(false) { //sauce index = 0;
-            //error path
+        e.preventDefault();
+        if(document.getElementById("sauceSelection").selectedIndex === 0) {
+            document.getElementById("error").removeAttribute("class");
+            let handleChange = function(e) {
+                document.getElementById("error").setAttribute("class", "hidden");
+                e.currentTarget.removeEventListener("change", handleChange);
+            }
+            document.getElementById("sauceSelection").addEventListener("change", handleChange);
         } else {
             handleCartSubmission(e);
         }

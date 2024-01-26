@@ -8,8 +8,8 @@
     <script src="js/scrips.js"></script>
 </head>
 <body>
+    <h1>Welcome to HENRY's PIZZA SHOP</h1>
     <form id="shop">
-        <h1>Welcome to HENRY's PIZZA SHOP</h1>
         <h2>Please customize your pizza: </h2>
         <div id="size">
             <h3>Size:</h3>
@@ -95,12 +95,13 @@
         </div>
 
         <div id="sauce">
-            <h3>Sauce:</h3>
+            <h3>Sauce (REQUIRED):</h3>
             <select id="sauceSelection">
                 <option disabled selectd>Choose a sauce</option>
                 <option value="marinara">Marinara</option>
                 <option value="alfredo">Alfredo</option>
             </select>
+            <p id="error" class="hidden">Please select a sauce</p>
         </div>
 
         <div id="instructions">
@@ -114,5 +115,21 @@
 
         <button type="submit" id="cart">Add to cart!</button>
     </form>
+
+    <div id="cartArea" class="hidden">
+        <h2>Cart: </h2>
+        <div id="items"> </div>
+        <label id="pickup">
+            <input type="radio" name="service" value="pickup" id="pickup" checked>
+            Pickup
+        </label><br>
+        <label>
+            <input type="radio" name="service" value="delivery" id="delivery">
+            Delivery ($5 fee)
+        </label><br>
+        <p>Subtotal: $<span id="subtotalCart">0</span></p>
+        <p>Tax: $<span id="tax">0</span></p>
+        <p>TOTAL: $<span id="total">0</span></p>
+    </div>
 </body>
 </html>

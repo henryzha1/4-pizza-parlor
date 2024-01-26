@@ -13,8 +13,7 @@ by [Henry Zhang]
 
 ## Technologies used
 - HTML5
-- CSS
-- JavaScript (Array, loop, if statements, functions)
+- JavaScript (Constructors, methods, and bjects, array, loop, if statements, functions)
 - VS Code
 - Git commands
 - Test Driven Development
@@ -57,10 +56,16 @@ Describe: updateTotalPrice()
 Test: "Updates total price at bottom dynamically as users change options for their pizza using pizza.getPrice";
 Code: updateTotalPrice();
 Expected Output: changes myPizza.price and updates the website live
+
+Describe: Pizza.prototype.addToCart();
+
+Test: "Adds current pizza configuration to DOM"
+Code: pizza.addToCart();
+Expected Output: adds the current pizza configuration to the cart part of the DOM/website.
 ```
 ## Known Bugs
 - No issues found as of the last update. Feel free to [reach out](mailto:henz51111@gmail.com) if encountered any.
-- Last updated: November 28, 2023
+- Last updated: January 26, 2024
 
 ## License
 [MIT](/LICENSE.txt)
